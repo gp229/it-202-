@@ -1,2 +1,3 @@
 insert into messagetable (messageid, chatroom, message, timestamp, username) values (NULL,1,"wats up", current_timestamp, 'jane');
 create table messagetable (messageid int primary key auto_increment, chatroom int(11), message varchar(150), timestamp datetime, username varchar(32));
+create table userstatus (userid int primary key auto_increment, chatroom int(11), username varchar(32));

@@ -15,16 +15,8 @@ switch($request)
 	$response = $login->validateClient($username,$password);
 	if ($response['success']===true)
 	{
-		$response ="";
-		?>
-
-		<p>Join a chatroom</p>
-		<a href=sports.php>Sports</a><br/>
-		<a href=games.php>Video Games</a><br/>
-		<a href=news.php>News</a><br/>
-		<a href=topic.php>Off Topic</a><br/>
-		<a href=help.php>Helpdesk</a><br/><br/>
-		<?php
+		$response ="Login successful";
+		echo"<a href=chatroomselect.php>Click here to select a chatroom</a><br/>";
 				
 	}
 	else

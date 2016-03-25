@@ -1,14 +1,20 @@
 <?php
 session_start();
+$datab = parse_ini_file("connect.ini");
+$user = $datab['user'];
+$password = $datab['password'];
+$db = $datab['db'];
+$host = $datab['host'];
+
 if(ISSET($_POST['message'])){
-$connect = new mysqli('localhost', 'root', '6leirbag','it202');
+$connect = new mysqli($host,$user, $password, $db);
 if($connect->connect_error){
 die('Could not connect: ' . $connect->connect_error);}
 
-
+$chatroomnum= mysqli_real_escape_string($connect, $_SESSION['chatroomnum']);
 $message= mysqli_real_escape_string($connect, $_POST['message']);
 $username= mysqli_real_escape_string($connect, $_SESSION['username']);
-$sql = "INSERT INTO messagetable(messageid, chatroom, message, timestamp, username) values (NULL,1,'$message', current_timestamp, '$username');";
+$sql = "INSERT INTO messagetable(messageid, chatroom, message, timestamp, username) values (NULL, $chatroomnum,'$message', current_timestamp, '$username');";
 
 $result = mysqli_query($connect, $sql);
 $connect->close();

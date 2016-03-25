@@ -9,11 +9,14 @@
     <FRAME src="sendmessage.php">
   </FRAMESET>
 </FRAMESET>
-
 </html>
 <?php
 session_start();
+$chatroom = '1';
 $username = $_SESSION['username'];
-ini_set('session.cache_limiter','public');
-session_cache_limiter(false);
+$userprint = "SELECT * FROM userstatus Where chatroom = $chatroom;";
+$query = "SELECT * FROM messagetable Where chatroom = $chatroom;";
+$_SESSION['querytest'] = $query;
+$_SESSION['chatroomnum'] = $chatroom;
+$_SESSION['users'] = $userprint;
 ?>
