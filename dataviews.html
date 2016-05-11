@@ -1,0 +1,35 @@
+    <select id= "logininfos">
+      <option value="All">All client data</option>
+      <option value="Ids">Client Ids</option>
+      <option value="names">Client Names</option>
+      <option value="Ids">Client Ids</option>
+            <option value="Ids">Client Ids</option>
+      <option value="Ids">Client Ids</option>
+      <option value="Ids">Client Ids</option>
+    </select>
+    
+        <form action="dataresponse.php" method="POST">
+    <button type="button" onclick="sendRequest()">Submit</button>
+  
+    <div id = "output"></div>
+
+    
+
+<script>
+var request;
+function sendRequest(){
+	//var logs = document.getElementById("All").value
+	request = new XMLHttpRequest();
+	request.onreadystatechange = handleResponse;
+	request.open("POST","dataresponse.php",true);
+	request.setRequestHeader("Content-type","application/json");
+	var data = JSON.stringify({request:"All"});
+	request.send(data);
+}
+
+function handleResponse()
+{
+	document.getElementById("output").innerHTML = "<H1>hello</H1>"
+		"<p>"+request.responseText+"</p>";
+}
+</script>
