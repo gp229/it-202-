@@ -1,24 +1,28 @@
-    <select id= "logininfos">
-      <option value="All">All client data</option>
-      <option value="Ids">Client Ids</option>
-      <option value="names">Client Names</option>
-      <option value="Ids">Client Ids</option>
-            <option value="Ids">Client Ids</option>
-      <option value="Ids">Client Ids</option>
-      <option value="Ids">Client Ids</option>
-    </select>
-    
-        <form action="dataresponse.php" method="POST">
-    <button type="button" onclick="sendRequest()">Submit</button>
-  
-    <div id = "output"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>Project 2</title>
 
-    
+      <!-- Bootstrap -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="somestyles.css">
+<title>Page title</title>
+</head>
+<body>
+   <p>Enter a search: <input type ="text" id="Something" /></p>
+<button type="button" onclick="Chatroom()">Chatroom</button>
+<button type="button" onclick="Names()">Names</button>
+<button type="button" onclick="AllData()">All Message Data</button>
+<div id="output"></div>
 
 <script>
 var request;
-function sendRequest(){
-	//var logs = document.getElementById("All").value
+function AllData()
+{
 	request = new XMLHttpRequest();
 	request.onreadystatechange = handleResponse;
 	request.open("POST","dataresponse.php",true);
@@ -26,10 +30,36 @@ function sendRequest(){
 	var data = JSON.stringify({request:"All"});
 	request.send(data);
 }
-
+function Chatroom()
+{
+	var number = document.getElementById("Something").value;
+	request = new XMLHttpRequest();
+	request.onreadystatechange = handleResponse;
+	request.open("POST","dataresponse.php",true);
+	request.setRequestHeader("Content-type","application/json");
+	var data = JSON.stringify({request:"Chat",chatroom:number});
+	request.send(data);
+}
+function Names()
+{
+	var word = document.getElementById("Something").value;
+	request = new XMLHttpRequest();
+	request.onreadystatechange = handleResponse;
+	request.open("POST","dataresponse.php",true);
+	request.setRequestHeader("Content-type","application/json");
+	var data = JSON.stringify({request:"Names",username:word});
+	request.send(data);
+}
 function handleResponse()
 {
-	document.getElementById("output").innerHTML = "<H1>hello</H1>"
-		"<p>"+request.responseText+"</p>";
+	var words = request.responseText;
+	var split = words.replace(/","/g,"<br>");
+	document.getElementById("output").innerHTML ="<p>"+ split +"</p>";
 }
 </script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

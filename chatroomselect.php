@@ -1,4 +1,21 @@
+<html>
+      <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>Project 2</title>
+
+      <!-- Bootstrap -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="somestyles.css">
+      <body>
 <p>Join a chatroom</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
 <form action="" method="post">
     <input type="hidden" name="action" value="submit" />
     <input id="sports-submit" type="submit" name="submit" value="sports">
@@ -8,7 +25,6 @@
     <input id="help-submit" type="submit" name="submit" value="helpdesk">
    
 </form>
-<a href='chatroomselect.php' target="_top">Go back</a>
 
 <?php
 if (isset($_POST['action'])){

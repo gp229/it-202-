@@ -14,34 +14,70 @@ switch($request["request"])
 	if($connect->connect_error){
 	  die('Could not connect: ' . $connect->connect_error);
 	}
-	$query = "Select * FROM clients;";
+	$query = "Select * FROM messagetable";
 	if($result = mysqli_query($connect,$query)){
+	  $x = array();
 	  while($row = mysqli_fetch_row($result)){
-	      $response =  $row['2'];//,$row['2']$row['3'], $row['4'],'</br>';
+	    	      $response=  $row['1']." ".$row['2']." ".$row['3']." ".$row['4'];
+	    $x[] = $response;
+
+	  }
+	  mysqli_free_result($result);
+	}
+	$connect->close();
+	break;
+    
+	
+   case "Chat":
+	$chatroom = $request['chatroom'];
+	$datab = parse_ini_file("connect.ini");
+	$user = $datab['user'];
+	$password = $datab['password'];
+	$db = $datab['db'];
+	$host = $datab['host'];
+	$connect = new mysqli($host,$user, $password, $db);
+	if($connect->connect_error){
+	  die('Could not connect: ' . $connect->connect_error);
+	}
+	$query = "Select * FROM messagetable where chatroom = $chatroom";
+	if($result = mysqli_query($connect,$query)){
+	  $x = array();
+	  while($row = mysqli_fetch_row($result)){
+	    	      $response=  $row['1']." ".$row['2']." ".$row['3']." ".$row['4'];
+	    $x[] = $response;
+
+	  }
+	  mysqli_free_result($result);
+	}
+	$connect->close();
+	break;
+     case "Names":
+	$username= $request['username'];
+	$datab = parse_ini_file("connect.ini");
+	$user = $datab['user'];
+	$password = $datab['password'];
+	$db = $datab['db'];
+	$host = $datab['host'];
+	$connect = new mysqli($host,$user, $password, $db);
+	if($connect->connect_error){
+	  die('Could not connect: ' . $connect->connect_error);
+	}
+	$username = "john";
+	$query = "Select * FROM messagetable username  = $username;";
+	if($result = mysqli_query($connect,$query)){
+	  $x = array();
+	  while($row = mysqli_fetch_row($result)){
+	    $rows[] = array_map('utf8_encode', $row);
+	    	      $response=  $row['1']." ".$row['2']." ".$row['3']." ".$row['4'];
+	    $x[] = $response;
+
 	  }
 	  mysqli_free_result($result);
 	}
 	$connect->close();
 	break;
     }
-	
-   /* case "register":
-	$username = $request['username'];
-	$password = $request['password'];
-	$register = new clientDB("connect.ini");
-	$response = $register->addNewClient($username,$password);
-	if ($response['success']===true)
-	{
-		$response = "Registration Successful!<p>";
-	}
-	else
-	{
-		$response = "Registration Failed:".$response['message']."<p>";
-		break;
-	}
-	*/
-//}
-echo json_encode($response);
+echo json_encode($x);
 
 
 ?>

@@ -1,6 +1,5 @@
 <?php
 
-
 class errorLogger
 {
   private $fp;

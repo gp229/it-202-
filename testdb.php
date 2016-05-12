@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-$db = new mysqli("localhost","root","asdfasdf","it202");
+$db = new mysqli("localhost","root","6leirbag","it202");
 /*
 	In here we can access the DB if it worked
 */

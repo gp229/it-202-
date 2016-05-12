@@ -1,16 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta char-set="utf-8">
-<title>login page</title>
-</head>
-<body>
-<form action="rpc.php" method="POST">
-<p>username: <input type="text" name="username" /></p>
-<p>password: <input type ="password" name="password" /></p>
-<input type="submit" name="request" value="login"/>
-<input type="submit" name="request" value="register"/>
-</form>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Project 2</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="somestyles.css">
+    <div class="header">
+      <div class ="logo">
+	<h1> <img src="logo.gif"
+    width = "200" height = "100" alt = "Chatroom" /></h1>
+      </div>
+    </div>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <form action="rpc.php" method="POST">
+    <p>username: <input type="text" id="username" /></p>
+    <p>password: <input type ="password" id="password" /></p>
+    <button type="button" onclick="sendRequest()">Submit</button>
+    <button type="button" onclick="sendRegister()">Register</button>
+    <div id="output"></div>
+    
+    
+
+<script>
+var request;
+function sendRequest()
+{
+	var name = document.getElementById("username").value;
+	var pw = document.getElementById("password").value;
+	request = new XMLHttpRequest();
+	request.onreadystatechange = handleResponse;
+	request.open("POST","rpc.php",true);
+	request.setRequestHeader("Content-type","application/json");
+	var data = JSON.stringify({request:"login",username:name,password:pw});
+	request.send(data);
+}
+function sendRegister()
+{
+	var name = document.getElementById("username").value;
+	var pw = document.getElementById("password").value;
+	request = new XMLHttpRequest();
+	request.onreadystatechange = handleResponse;
+	request.open("POST","rpc.php",true);
+	request.setRequestHeader("Content-type","application/json");
+	var data = JSON.stringify({request:"register",username:name,password:pw});
+	request.send(data);
+}
+
+function handleResponse()
+{
+	document.getElementById("output").innerHTML = 
+		"<p>"+request.responseText+"</p>";
+}
+</script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

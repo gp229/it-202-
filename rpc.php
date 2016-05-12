@@ -1,50 +1,51 @@
 <?php
 
 require_once("clientDB.php.inc");
-
 $request = $_POST['request'];
-$response = "Not working<p>";
+$request = json_decode(file_get_contents("php://input"),true);
 session_start();
-$_SESSION['username']=$_POST['username'];
-switch($request)
+$_SESSION['username']=$request['username'];
+$response = "error unrecognized request<p>";
+switch($request["request"])
 {
     case "login":
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$username = $request['username'];
+	$password = $request['password'];
 	$login = new clientDB("connect.ini");
 	$response = $login->validateClient($username,$password);
 	if ($response['success']===true)
 	{
-		$response ="Login successful";
+		$response = "Login Successful!<p>";
 		echo"<a href=chatroomselect.php>Click here to select a chatroom</a><br/>";
-				
+		echo"<a href=dataviews.html>Click here to check data</a><br/>";
 	}
 	else
 	{
 		$response = "Login Failed:".$response['message']."<p>";
-		echo"<a href=index.html>Return to login</a><br/>";
 	}
 	break;
 	
     case "register":
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$username = $request['username'];
+	$password = $request['password'];
 	$register = new clientDB("connect.ini");
 	$response = $register->addNewClient($username,$password);
 	if ($response['success']===true)
 	{
 		$response = "Registration Successful!<p>";
-		echo"<a href=index.html>Return to login</a><br/>";
 	}
 	else
 	{
-		$response = "Registration Failed:".$response['message']."<p>";	
-		echo"<a href=index.html>Return to login</a><br/>";
+		$response = "Registration Failed:".$response['message']."<p>";
 		break;
 	}
 }
 
-echo $response;
-
-
+echo json_encode($response);
 ?>
+
+
+
+
+
+
